@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Selamat Ulang Tahun, HANIIPAAAA!</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #ffc0cb, #ffe4e1);
+      overflow: hidden;
+      height: 100vh;
+      position: relative;
+    }
+
+    .glitter {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      background-image: radial-gradient(#fff 1px, transparent 1px);
+      background-size: 20px 20px;
+      opacity: 0.3;
+      animation: sparkle 3s linear infinite;
+      z-index: 1;
+    }
+
+    @keyframes sparkle {
+      from { background-position: 0 0; }
+      to { background-position: 100% 100%; }
+    }
+
+    .kontainer {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      text-align: center;
+      z-index: 2;
+      width: 90%;
+      max-width: 400px;
+    }
+
+    h1 {
+      font-size: 36px;
+      color: #d63384;
+      text-shadow: 2px 2px #fff;
+      margin-bottom: 10px;
+    }
+
+    p {
+      font-size: 18px;
+      color: #444;
+      margin: 5px 0 20px;
+    }
+
+    button {
+      padding: 14px 28px;
+      font-size: 18px;
+      background: linear-gradient(45deg, #ff69b4, #ff1493);
+      color: white;
+      border: none;
+      border-radius: 25px;
+      cursor: pointer;
+      box-shadow: 0 6px 12px rgba(0,0,0,0.2);
+      transition: all 0.3s ease;
+    }
+
+    button.clicked {
+      background: linear-gradient(45deg, #ff8da3, #ff3e85);
+      transform: scale(1.05);
+    }
+
+    #ucapan {
+      margin-top: 30px;
+      font-size: 20px;
+      color: #800080;
+      min-height: 50px;
+      border-right: 2px solid purple;
+      white-space: pre-wrap;
+      overflow: hidden;
+    }
+  </style>
+</head>
+<body onload="showPopup(); playMusic();">
+  <div class="glitter"></div>
+  <div class="kontainer">
+    <h1>Selamat Ulang Tahun, HANIIPAAAA!</h1>
+    <p>Doa terbaik untukmu sayangg!</p>
+    <button id="tombol" onclick="tampilkanUcapan()">Klik aku terus ya paa</button>
+    <div id="ucapan"></div>
+  </div>
+
+  <audio id="bgMusic" loop>
+    <source src="https://www.bensound.com/bensound-music/bensound-sunny.mp3" type="audio/mp3" />
+  </audio>
+
+  <script>
+    function showPopup() {
+      alert("Hai HANIIPAAAA! Siap-siap ya... Hari ini spesial banget buat kamu!");
+    }
+
+    function playMusic() {
+      const music = document.getElementById("bgMusic");
+      music.volume = 0.4;
+      music.play().catch(() => {
+        document.body.addEventListener('click', () => music.play(), { once: true });
+      });
+    }
+
+    const pesanList = [
+      "HAII, HANIIPAAAA, selamat ulangtahun yaa!",
+      "Senyummu itu bikin dunia lebih indah.",
+      "Semoga semua mimpimu tercapai, paa!",
+      "Ini harimu sayangg!",
+      "Aku doain kamu bahagia selalu!",
+      "Jangan lupa tetap jadi kamu yang aku kenal.",
+      "Jangan berubah ya walau suatu saat kita asing.",
+      "Klik lagi, aku ada banyak pesan cinta!",
+      "Lopyuu sebagai sahabat selamanya, #wonogirisemuapren",
+    ];
+    
+    let indexPesan = 0;
+    let sedangMengetik = false;
+
+    function tampilkanUcapan() {
+      if (sedangMengetik) return;
+
+      const ucapanEl = document.getElementById("ucapan");
+      const pesan = pesanList[indexPesan % pesanList.length];
+      ucapanEl.textContent = "";
+      sedangMengetik = true;
+
+      let i = 0;
+      const interval = setInterval(() => {
+        ucapanEl.textContent += pesan.charAt(i);
+        i++;
+        if (i >= pesan.length) {
+          clearInterval(interval);
+          sedangMengetik = false;
+        }
+      }, 50);
+
+      document.getElementById("tombol").classList.toggle("clicked");
+      indexPesan++;
+    }
+  </script>
+</body>
+</html>
